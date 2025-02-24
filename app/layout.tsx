@@ -6,6 +6,7 @@ import {Provider} from "react-redux";
 import "./globals.css";
 import { store} from "@/app/redux/store";
 import React from "react";
+import Navbar from "@/app/components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="bg-gray-100"
       >
       <Provider store={store}>
           <QueryClientProvider client={queryClient}>
-              {children}
+              <Navbar />
+              <main className={"p-8"}>{children}</main>
           </QueryClientProvider>
       </Provider>
       </body>

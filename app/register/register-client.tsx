@@ -11,6 +11,7 @@ export default function RegisterClient() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function RegisterClient() {
 
         try {
             setLoading(true)
-            const res = await registerUser({name, email, password});
+            const res = await registerUser({name, email, password, role});
             dispatch(loginSuccess(res.data as User));
             router.push('/login');
         } catch (error) {
@@ -50,6 +51,9 @@ export default function RegisterClient() {
                            required/>
                     <input className="w-full p-2 mb-4 border rounded" type="email" placeholder="Email" value={email}
                            onChange={(e) => setEmail(e.target.value)}
+                           required/>
+                    <input className="w-full p-2 mb-4 border rounded" type="text" placeholder="Role" value={role}
+                           onChange={(e) => setRole(e.target.value)}
                            required/>
                     <input className="w-full  p-2 mb-4 border rounded" type="password" placeholder="Password"
                            value={password}

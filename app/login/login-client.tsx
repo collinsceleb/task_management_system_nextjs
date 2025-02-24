@@ -2,9 +2,9 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {loginSuccess} from "../redux/authSlice";
-import {loginUser, getCsrfToken, getUserProfile} from "../utils/route";
+import {loginUser, getCsrfToken } from "../utils/route";
 import {useRouter} from "next/navigation";
-import {AxiosError} from "axios";
+import {AxiosError, AxiosResponse} from "axios";
 import {User} from "@/app/types/user";
 
 
@@ -26,17 +26,17 @@ export default function LoginClient() {
 
         try {
             setLoading(true)
-            await loginUser({email, password});
-            const user: User = await getUserProfile();
-            // dispatch(loginSuccess(res.data as User));
-            if (user.role === 'admin' || user.role === 'manager') {
-                router.push('/create-task');
+            const res = await loginUser({email, password});
+            console.log(res.user)
+            dispatch(loginSuccess(res.user as User));
+            if (res.user.role === 'admin' || res.user.role === 'manager') {
+                router.push('/tasks/create');
             } else {
-                router.push('/get-tasks');
+                router.push('/tasks/list');
             }
-            router.push('/tasks');
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;
+            console.log(axiosError.response?.data?.message)
             setError(axiosError.response?.data?.message || 'Login failed');
         } finally {
             setLoading(false)
