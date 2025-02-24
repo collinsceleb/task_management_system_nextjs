@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {Provider} from "react-redux";
 import "./globals.css";
-import store from "@/app/redux/store";
+import { store} from "@/app/redux/store";
 import React from "react";
 
 const geistSans = Geist({
