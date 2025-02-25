@@ -17,7 +17,7 @@ export default function Home() {
             setIsAuthenticated(false);
         } else {
             setIsAuthenticated(true);
-            fetchTasks();
+            fetchTasks().catch(console.error);
         }
     }, []);
 

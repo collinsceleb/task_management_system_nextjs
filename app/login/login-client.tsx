@@ -27,7 +27,9 @@ export default function LoginClient() {
         try {
             setLoading(true)
             const res = await loginUser({email, password});
-            console.log(res.user)
+            localStorage.setItem("token", res.token);
+
+            console.log(res.token)
             dispatch(loginSuccess(res.user as User));
             if (res.user.role === 'admin' || res.user.role === 'manager') {
                 router.push('/tasks/create');
